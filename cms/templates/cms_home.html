@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}CMS{% endblock %}
+
+    {% block imports %}
+        {{form.media}}
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen-bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/creation-styles.css' %}">
+        <style type="text/css">
+            .square {
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                width: 10vw;
+                height: 10vw;
+                min-width: 120px;
+                min-height: 120px;
+                display: inline-block;
+                margin: 20px 10px 20px 0;
+            }
+            .square h2 i{
+                width: 100%;
+            }
+        </style>
+    {% endblock %}
+
+    {% block main_panel %}
+        {% block section_title %}
+            <a class="navbar-brand" href="{% url 'cms:home' %}" style="border-right:1px solid #ddd">
+                <i class="pe-7s-news-paper"></i> CMS
+            </a>
+        {% endblock %}
+        {% block breadcrumbs %}
+            <li><a href="{% url 'backend_home' %}">Inicio</a></li>
+            <li class="active">CMS</li>
+        {% endblock %}
+        
+        {% block content%}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-4">
+                                    <div class="header">
+                                        <h2>
+                                            <p class="category">Administrador</p>
+                                            CMS<br>
+                                            <small>Gestionar contenido del sitio</small> 
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div class="text-center col-xs-12 col-md-8">
+                                    <a class="btn btn-primary square" href="{% url 'cms:posts_index'%}">
+                                        <h2><i class="fa fa-file-text"></i></h2>
+                                        <p>Documentos</p>
+                                    </a>
+                                    <a class="btn btn-primary square" href="{% url 'cms:posts_index'%}">
+                                        <h2><i class="fa fa-newspaper-o"></i></h2>
+                                        <p>Artículos</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>                    
+            </div>
+        {% endblock %}
+
+    {% endblock %}
+    
+    {% block js %}
+        <script type="text/javascript" src="{% static 'assets/js/chosen.jquery.min.js' %}"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#id_related_articles').chosen({
+                    placeholder_text_multiple:'Escribe para buscar...',
+                    width: "100%",
+                    search_contains: true
+                });
+            });
+        </script>
+    {% endblock %}
+</html>

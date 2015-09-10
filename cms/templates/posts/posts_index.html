@@ -1,0 +1,159 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+    {% if key %}
+        Buscar artículos
+    {% else %}
+        Artículos
+    {% endif %}
+{% endblock %}
+
+    {% block imports %}
+        {{form.media}}
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen-bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/creation-styles.css' %}">
+    {% endblock %}
+
+    {% block main_panel %}
+        {% block section_title %}
+            <a class="navbar-brand" href="{% url 'cms:home' %}" style="border-right:1px solid #ddd">
+                <i class="pe-7s-news-paper"></i> CMS
+            </a>
+        {% endblock %}
+        {% block breadcrumbs %}
+            <li><a href="{% url 'backend_home' %}">Inicio</a></li>
+            <li><a href="{% url 'cms:home' %}">CMS</a></li>
+            {% if key %}
+                <li><a href="{% url 'cms:posts_index' %}">Artículos</a></li>
+                <li class="active">Buscar artículos</li>
+            {% else %}
+                <li class="active">Artículos</li>
+            {% endif %}
+        {% endblock %}
+        
+        {% block content%}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-8 col-xs-12">
+                                <form style="margin-bottom:10px;" action="{% url 'cms:search_posts' %}" method="GET">
+                                  <div class="input-group">
+                                      <input type="text" name="key" class="form-control" placeholder="Buscar por título..." value="{{key}}" required>
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-primary btn-fill" type="submit">
+                                            <i class="fa fa-search"></i> Buscar
+                                        </button>
+                                      </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4 col-xs-12">
+                                <a href="{% url 'cms:new_post' %}" class="col-xs-12 btn btn-primary btn-fill" style="margin-bottom:10px;">
+                                    <i class="fa fa-plus"></i> Nuevo artículo
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="card">
+                            <div class="header">
+                                <h3>
+                                    {% if key %}
+                                        <p class="category">CMS</p>
+                                        Búsqueda de artículos por título<br>
+                                        <small>Término de búsqueda: <b>{{key}}</b></small> <br>
+                                        <small style="font-size:14px;">{{count}} artículos encontrados</small> 
+                                    {% else %}
+                                        <p class="category">CMS</p>
+                                        Artículos<br>
+                                        <small>{{count}} artículos</small> 
+                                    {% endif %}
+                                </h3>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th class="text-center">ID</th>
+                                        <th>Título</th>
+                                        <th class="text-center">Publicado</th>
+                                        <th class="text-center hidden-xs">Última modificación</th>
+                                        <th class="text-center hidden-xs">Comentarios</th>
+                                        <th class="text-center hidden-xs">Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for post in posts %}
+                                        <tr class="text-center">
+                                            <td>{{post.id}}</td>
+                                            <td class="text-left">
+                                                <a href="{% url 'cms:edit_post' post.id %}">{{post.title}}</a>
+                                            </td>
+                                            <td>
+                                                {% if post.published %}
+                                                    <a href="{% url 'cms:hide_post' post.id %}" class="text-success">
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{% url 'cms:publish_post' post.id %}" class="text-danger">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                {% endif %}
+                                            </td>
+                                            <td class="hidden-xs">{{post.date}}</td>
+                                            <td class="hidden-xs">{{post.comment_set.all.count}}</td>
+                                            <td>
+                                                <a class="text-danger" href="{% url 'cms:remove_post' post.id %}">
+                                                    <i class="fa fa-trash"></i> 
+                                                    <span class="hidden-xs">Eliminar</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <nav>
+                                          <ul class="pager">
+                                            {% if posts.has_previous %}
+                                                <li style="margin-right:20px;">
+                                                    <a href="?page={{ contacts.previous_page_number }}">Anterior</a>
+                                                </li>
+                                            {% endif %}
+
+                                            <span class="current">
+                                                Página {{ posts.number }} de {{ posts.paginator.num_pages }}
+                                            </span>
+
+                                            {% if posts.has_next %}
+                                                <li style="margin-left:20px;">
+                                                    <a href="?page={{ posts.next_page_number }}">Siguiente</a>
+                                                </li>
+                                            {% endif %}
+                                          </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>                    
+            </div>
+        {% endblock %}
+
+    {% endblock %}
+    
+    {% block js %}
+        <script type="text/javascript" src="{% static 'assets/js/chosen.jquery.min.js' %}"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#id_related_articles').chosen({
+                    placeholder_text_multiple:'Escribe para buscar...',
+                    width: "100%",
+                    search_contains: true
+                });
+            });
+        </script>
+    {% endblock %}
+</html>

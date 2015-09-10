@@ -1,0 +1,44 @@
+{% load static %}
+<div class="sidebar" data-color="green" data-image="{% static 'assets/img/sidebar-5.jpg' %}">
+
+	<div class="sidebar-wrapper">
+        <div class="logo" style="border:0">
+            <a href="#dark" class="simple-text">
+                <img src="{% static 'assets/img/logo.png' %}" style="max-height:90px;">
+            </a>
+        </div>
+
+        <ul class="nav">
+            <li>
+                <a href="dashboard.html">
+                    <i class="pe-7s-home"></i>
+                    <p>Inicio</p>
+                </a>
+            </li>
+            <li class="active">
+                <a href="{% url 'cms:home' %}">
+                    <i class="pe-7s-news-paper"></i>
+                    <p>CMS</p>
+                </a>
+            </li>
+            <li>
+                <a href="user.html">
+                    <i class="pe-7s-piggy"></i>
+                    <p>Financiero</p>
+                </a>
+            </li>
+            <li>
+                <a href="table.html">
+                    <i class="pe-7s-tools"></i>
+                    <p>Configuración</p>
+                </a>
+            </li>
+             <li>
+                <a href="notifications.html">
+                    <i class="pe-7s-help1"></i>
+                    <p>Ayuda</p>
+                </a>
+            </li>
+        </ul>
+	</div>
+</div>
