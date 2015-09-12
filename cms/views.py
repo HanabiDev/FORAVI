@@ -4,8 +4,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
-from cms.forms import PostForm
-from cms.models import Post
+from cms.forms import PostForm, DocumentForm
+from cms.models import Post, Document
 
 
 def paginate_objects(page, objects):
@@ -40,7 +40,7 @@ def create_post(request):
 
 
 def index_posts(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-date')
     count = posts.count()
     page = request.GET.get('page')
     posts = paginate_objects(page,posts)
@@ -49,7 +49,7 @@ def index_posts(request):
 
 def search_posts(request):
     key = request.GET.get('key')
-    posts = Post.objects.filter(title__contains=key)
+    posts = Post.objects.filter(title__contains=key).order_by('-date')
     count = posts.count()
     page = request.GET.get('page')
     posts = paginate_objects(page,posts)
@@ -89,3 +89,73 @@ def delete_post(request, post_id):
     post = Post.objects.get(id=post_id)
     post.delete()
     return redirect(reverse_lazy('cms:posts_index'))
+
+
+
+
+
+""" Documents views """
+
+def create_doc(request):
+    if request.method == 'GET':
+        form = DocumentForm()
+        return render_to_response('docs/doc.html', {'form':form}, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            doc = form.save()
+            return redirect(reverse_lazy('cms:docs_index'))
+        else:
+            return render_to_response('docs/doc.html', {'form':form}, context_instance=RequestContext(request))
+
+
+def index_docs(request):
+    docs = Document.objects.all().order_by('-date')
+    count = docs.count()
+    page = request.GET.get('page')
+    docs = paginate_objects(page,docs)
+    return render_to_response('docs/docs_index.html', {'count':count, 'docs' : docs }, context_instance=RequestContext(request))
+
+
+def search_docs(request):
+    key = request.GET.get('key')
+    docs = Document.objects.filter(name__contains=key).order_by('-date')
+    count = docs.count()
+    page = request.GET.get('page')
+    docs = paginate_objects(page,docs)
+    return render_to_response('docs/docs_index.html', {'key':key,'count':count, 'docs' : docs }, context_instance=RequestContext(request))
+
+
+def update_doc(request, doc_id):
+    doc = Document.objects.get(id=doc_id)
+
+    if request.method == 'GET':
+        form = DocumentForm(instance=doc)
+        return render_to_response('docs/doc.html', {'editing':True, 'form':form}, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES, instance=doc)
+        if form.is_valid():
+            doc = form.save()
+            return redirect(reverse_lazy('cms:docs_index'))
+        else:
+            return render_to_response('docs/doc.html', {'editing':True, 'form':form}, context_instance=RequestContext(request))
+
+def publish_doc(request, doc_id):
+    doc = Document.objects.get(id=doc_id)
+    doc.published = True
+    doc.save()
+    return redirect(reverse_lazy('cms:docs_index'))
+
+
+def unpublish_doc(request, doc_id):
+    doc = Document.objects.get(id=doc_id)
+    doc.published = False
+    doc.save()
+    print doc.published
+    return redirect(reverse_lazy('cms:docs_index'))
+
+
+def delete_doc(request, doc_id):
+    doc = Document.objects.get(id=doc_id)
+    doc.delete()
+    return redirect(reverse_lazy('cms:docs_index'))

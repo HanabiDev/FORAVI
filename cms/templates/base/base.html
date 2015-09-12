@@ -52,7 +52,7 @@
                             </button>
                             {% block section_title %}
                                 <a class="navbar-brand" href="{% url 'backend_home' %}" style="border-right:1px solid #ddd">
-                                    <i class="pe-7s-home"></i> inicio
+                                    <i class="pe-7s-home"></i> Inicio
                                 </a>
                             {% endblock %}
                             
@@ -84,13 +84,22 @@
                                 </li>
                                 
                                 <li class="dropdown">
-                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fa fa-user"></i> {{user.first_name}} {{user.last_name}} {{user.username}}
+                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:5px">
+                                            <img src="/media/{{user.avatar}}" class="img-circle" height="30px">
+                                            {{user.first_name}} {{user.last_name}}
                                             <b class="caret"></b>
                                       </a>
                                       <ul class="dropdown-menu">
-                                        <li><a href="#"><i class="fa fa-gear"></i> Cuenta</a></li>
-                                        <li><a href="#"><i class="fa fa-send"></i> Salir</a></li>
+                                        <li>
+                                            <a href="{% url 'account' %}">
+                                                <i class="fa fa-gear"></i> Cuenta
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'backend_logout' %}">
+                                                <i class="fa fa-send"></i> Salir
+                                            </a>
+                                        </li>
                                       </ul>
                                 </li>
                             </ul>

@@ -1988,7 +1988,7 @@ body > .navbar-collapse[data-color="purple"]:after {
   line-height: 24px;
 }
 .card-user .content {
-  min-height: 240px;
+  min-height: 150px;
 }
 
 .card-user .footer,
@@ -2793,12 +2793,6 @@ body > .navbar-collapse[data-color="purple"]:after {
 
   .card form [class*="col-"] {
     padding: 6px;
-  }
-  .card form [class*="col-"]:first-child {
-    padding-left: 15px;
-  }
-  .card form [class*="col-"]:last-child {
-    padding-right: 15px;
   }
 }
 /*          Changes for small display      */

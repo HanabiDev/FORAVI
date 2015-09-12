@@ -1,0 +1,153 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+    {% if key %}
+        Buscar documentos
+    {% else %}
+        Documentos
+    {% endif %}
+{% endblock %}
+
+    {% block imports %}
+        {{form.media}}
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen-bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/creation-styles.css' %}">
+    {% endblock %}
+
+    {% block main_panel %}
+        {% block section_title %}
+            <a class="navbar-brand" href="{% url 'cms:home' %}" style="border-right:1px solid #ddd">
+                <i class="pe-7s-news-paper"></i> CMS
+            </a>
+        {% endblock %}
+        {% block breadcrumbs %}
+            <li><a href="{% url 'backend_home' %}">Inicio</a></li>
+            <li><a href="{% url 'cms:home' %}">CMS</a></li>
+            {% if key %}
+                <li><a href="{% url 'cms:docs_index' %}">Documentos</a></li>
+                <li class="active">Buscar documentos</li>
+            {% else %}
+                <li class="active">Documentos</li>
+            {% endif %}
+        {% endblock %}
+        
+        {% block content%}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-8 col-xs-12">
+                                <form style="margin-bottom:10px;" action="{% url 'cms:search_docs' %}" method="GET">
+                                  <div class="input-group">
+                                      <input type="text" name="key" class="form-control" placeholder="Buscar por nombre..." value="{{key}}" required>
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-primary btn-fill" type="submit">
+                                            <i class="fa fa-search"></i> Buscar
+                                        </button>
+                                      </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4 col-xs-12">
+                                <a href="{% url 'cms:new_doc' %}" class="col-xs-12 btn btn-primary btn-fill" style="margin-bottom:10px;">
+                                    <i class="fa fa-plus"></i> Nuevo documento
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="card">
+                            <div class="header">
+                                <h3>
+                                    {% if key %}
+                                        <p class="category">CMS</p>
+                                        Búsqueda de documentos por nombre<br>
+                                        <small>Término de búsqueda: <b>{{key}}</b></small> <br>
+                                        <small style="font-size:14px;">{{count}} documentos encontrados</small> 
+                                    {% else %}
+                                        <p class="category">CMS</p>
+                                        Documentos<br>
+                                        <small>{{count}} documentos</small> 
+                                    {% endif %}
+                                </h3>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th class="text-center">ID</th>
+                                        <th>Nombre</th>
+                                        <th class="text-center">Publicado</th>
+                                        <th class="text-center hidden-xs">Última modificación</th>
+                                        <th class="text-center hidden-xs">Tamaño</th>
+                                        <th class="text-center hidden-xs">Comentarios</th>
+                                        <th class="text-center hidden-xs">Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for doc in docs %}
+                                        <tr class="text-center">
+                                            <td>{{doc.id}}</td>
+                                            <td class="text-left">
+                                                <a href="{% url 'cms:edit_doc' doc.id %}">{{doc.name}}</a>
+                                            </td>
+                                            <td>
+                                                {% if doc.published %}
+                                                    <a href="{% url 'cms:hide_doc' doc.id %}" class="text-success">
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{% url 'cms:publish_doc' doc.id %}" class="text-danger">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                {% endif %}
+                                            </td>
+                                            <td class="hidden-xs">{{doc.date}}</td>
+                                            <td class="hidden-xs">
+                                                <a href="/media/{{doc.file}}" target="_blank">
+                                                    <i class="fa fa-cloud-download"></i>
+                                                    ({{doc.file.size|filesizeformat }})
+                                                </a>
+                                            </td>
+                                            <td class="hidden-xs">{{doc.comment_set.all.count}}</td>
+                                            <td>
+                                                <a class="text-danger" href="{% url 'cms:remove_doc' doc.id %}">
+                                                    <i class="fa fa-trash"></i> 
+                                                    <span class="hidden-xs">Eliminar</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <nav>
+                                          <ul class="pager">
+                                            {% if docs.has_previous %}
+                                                <li style="margin-right:20px;">
+                                                    <a href="?page={{ docs.previous_page_number }}">Anterior</a>
+                                                </li>
+                                            {% endif %}
+
+                                            <span class="current">
+                                                Página {{ docs.number }} de {{ docs.paginator.num_pages }}
+                                            </span>
+
+                                            {% if docs.has_next %}
+                                                <li style="margin-left:20px;">
+                                                    <a href="?page={{ docs.next_page_number }}">Siguiente</a>
+                                                </li>
+                                            {% endif %}
+                                          </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>                    
+            </div>
+        {% endblock %}
+
+    {% endblock %}
+</html>

@@ -1,0 +1,93 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+    {% if editing %}Editar documento{% else %}Nuevo documento{% endif %}
+{% endblock %}
+
+    {% block imports %}
+        {{form.media}}
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen-bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/creation-styles.css' %}">
+    {% endblock %}
+
+    {% block main_panel %}
+        {% block section_title %}
+            <a class="navbar-brand" href="{% url 'cms:home' %}" style="border-right:1px solid #ddd">
+                <i class="pe-7s-news-paper"></i> CMS
+            </a>
+        {% endblock %}
+        {% block breadcrumbs %}
+            <li><a href="{% url 'backend_home' %}">Inicio</a></li>
+            <li><a href="{% url 'cms:home' %}">CMS</a></li>
+            <li><a href="{% url 'cms:docs_index' %}">Documentos</a></li>
+            <li class="active">{% if editing %}Editar documento{% else %}Nuevo documento{% endif %}</li>
+        {% endblock %}
+        {% block content%}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-md-3 col-xs-12" style="margin-bottom:20px;">
+                                <a href="{% url 'cms:docs_index' %}" style="width:100%;" class="btn btn-danger btn-fill"> 
+                                    <i class="fa fa-chevron-left"></i> Volver
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h3>
+                                    <p class="category">CMS</p>
+                                    {% if editing %}Editar artículo{% else %}Nuevo documento{% endif %}
+                                    <br>
+                                    {% if editing %}
+                                        <small>Modificar un documento ya creado</small> 
+                                    {% else %}
+                                        <small>Crear un nuevo documento y publicarlo</small> 
+                                    {% endif %}
+                                </h3>
+                            </div>
+                            <div class="content">
+                                <form method="POST" action="." enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% for field in form %}
+                                        <div class="form-group">
+                                            <label>{{field.label}}</label>
+                                            {% if field.errors %}
+                                                <span class="text-danger">{{field.errors}}</span>
+                                            {% endif %}
+                                            {{field}}
+                                        </div>
+                                    {% endfor %}
+
+                                    <button type="submit" class="btn btn-primary btn-fill pull-right">
+                                        {% if editing %}Guardar cambios
+                                        {% else %}Crear documento{% endif %}
+                                    </button>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    {% endblock %}
+    
+	{% block js %}
+        <script src="{% static 'assets/js/bootstrap-checkbox-radio-switch.js' %}"></script>
+        <script type="text/javascript" src="{% static 'assets/js/chosen.jquery.min.js' %}"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('select').chosen({
+                    placeholder_text_multiple:'Escribe para buscar...',
+                    width: "100%",
+                    search_contains: true
+                });
+                $('#id_file').siblings('label').css('display','block');
+            });
+        </script>
+    {% endblock %}
+</html>
