@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^recuperar-clave/$', 'backend.views.restore_password', name='restore_password'),
     url(r'^cms/', include('cms.urls', 'cms')),
     url(r'^financiero/', include('clients.urls')),
-    #url(r'^usuarios/', include('users.urls')),
+    url(r'^usuarios/', include('users.urls','users')),
 ]

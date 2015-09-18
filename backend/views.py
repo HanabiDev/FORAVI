@@ -61,13 +61,11 @@ def restore_password(request):
 
 def manage_account(request):
     user = request.user
-    print user.first_name
     if request.method == 'GET':
         form = AccountForm(instance=user)
         return render_to_response('account.html', {'form':form}, context_instance=RequestContext(request))
 
     if request.method == 'POST':
-        print request.POST
 
         form = AccountForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
@@ -87,7 +85,7 @@ def update_password(request):
     if request.method == 'POST':
         form = CustomPasswordChangeForm(request.user,request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             return redirect(reverse_lazy('backend_login'))
         return render_to_response('update_password.html', {'form':form}, context_instance=RequestContext(request))
 

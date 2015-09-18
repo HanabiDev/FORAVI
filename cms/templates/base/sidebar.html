@@ -4,14 +4,14 @@
 
 	<div class="sidebar-wrapper">
         <div class="logo" style="border:0">
-            <a href="#dark" class="simple-text">
+            <a href="{% url 'backend_home' %}" class="simple-text">
                 <img src="{% static 'assets/img/logo.png' %}" style="max-height:90px;">
             </a>
         </div>
 
         <ul class="nav">
             <li class="{% navactive request 'backend_home account update_password' %}">
-                <a href="dashboard.html">
+                <a href="{% url 'backend_home' %}">
                     <i class="pe-7s-home"></i>
                     <p>Inicio</p>
                 </a>
@@ -28,8 +28,8 @@
                     <p>Financiero</p>
                 </a>
             </li>
-            <li>
-                <a href="#">
+            <li class="{% navactive request 'users_index' %}">
+                <a href="{% url 'users:users_index' %}">
                     <i class="pe-7s-users"></i>
                     <p>Usuarios</p>
                 </a>

@@ -1,0 +1,133 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+    {% if editing %}Editar artículo{% else %}Nuevo artículo{% endif %}
+{% endblock %}
+
+    {% block imports %}
+        {{form.media}}
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen-bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/creation-styles.css' %}">
+    {% endblock %}
+
+    {% block main_panel %}
+        {% block section_title %}
+            <a class="navbar-brand" href="{% url 'users:users_index' %}" style="border-right:1px solid #ddd">
+                <i class="pe-7s-users"></i> Usuarios
+            </a>
+        {% endblock %}
+        {% block breadcrumbs %}
+            <li><a href="{% url 'backend_home' %}">Inicio</a></li>
+            <li><a href="{% url 'users:users_index' %}">Usuarios</a></li>
+            <li class="active">{% if editing %}Editar usuario{% else %}Nuevo usuario{% endif %}</li>
+        {% endblock %}
+        {% block content%}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-md-3 col-xs-12" style="margin-bottom:20px;">
+                                <a href="{% url 'users:users_index' %}" style="width:100%;" class="btn btn-danger btn-fill">
+                                    <i class="fa fa-chevron-left"></i> Volver
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card">
+                            <div class="header">
+                                <h3>
+                                    <p class="category">Usuarios</p>
+                                    {% if editing %}Editar usuario{% else %}Nuevo usuario{% endif %}
+                                    <br>
+                                    {% if editing %}
+                                        <small>Modificar un usuario ya creado</small>
+                                    {% else %}
+                                        <small>Crear un nuevo usuario</small>
+                                    {% endif %}
+                                </h3>
+                            </div>
+                            <div class="content">
+                                <div class="row">
+                                    {% if editing %}
+                                    <div class="col-md-3">
+                                        <div class="content">
+                                            <div class="author text-center">
+                                                <img class="photo img-circle border-gray" height="120px" width="120px" src="/media/{{avatar}}" alt="..."/>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="text-center">
+                                            <button id="change-photo-btn" class="btn btn-simple">
+                                                <small>
+                                                    <i class="fa fa-edit"></i> Cambiar foto
+                                                </small>
+                                            </button>
+                                            <a href="{% url 'users:edit_user_password' id %}" class="btn btn-simple">
+                                                <small>
+                                                    <i class="fa fa-lock"></i> Cambiar contraseña
+                                                </small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="col-md-9">
+                                        <form method="POST" action="." enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            {% for field in form %}
+                                                <div class="form-group">
+                                                    <label>{{field.label}}</label>
+                                                    {% if field.errors %}
+                                                        <span class="text-danger">{{field.errors}}</span>
+                                                    {% endif %}
+                                                    {{field}}
+                                                </div>
+                                            {% endfor %}
+
+                                            <button type="submit" class="btn btn-primary btn-fill pull-right">
+                                                {% if editing %}Guardar cambios
+                                                {% else %}Crear usuario{% endif %}
+                                            </button>
+                                            <div class="clearfix"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    {% endblock %}
+
+	{% block js %}
+        <script src="{% static 'assets/js/bootstrap-checkbox-radio-switch.js' %}"></script>
+        <script>
+            $(document).ready(function(){
+                $("#id_avatar").attr('onchange','update_image(this)');
+
+                $('#id_password').parent().hide();
+                $("#change-photo-btn").click(function(){
+                    $("#id_avatar").click();
+                });
+            });
+
+            var update_image = function(obj){
+
+                // if IE < 10 doesn't support FileReader
+                if(!window.FileReader){
+                    // don't know how to proceed to assign src to image tag
+                } else {
+                    var reader = new FileReader();
+                    var target = null;
+
+                    reader.onload = function(e) {
+                        target =  e.target || e.srcElement;
+                        $(".photo").prop("src", target.result);
+                    };
+                    reader.readAsDataURL(obj.files[0]);
+                }
+            };
+        </script>
+    {% endblock %}

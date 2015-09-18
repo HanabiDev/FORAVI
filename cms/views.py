@@ -1,26 +1,11 @@
 #encoding: utf-8
 
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
+from FORAVI.utils import paginate_objects
 from cms.forms import PostForm, DocumentForm
 from cms.models import Post, Document
-
-
-def paginate_objects(page, objects):
-    paginator = Paginator(objects,15)
-
-    try:
-        objects = paginator.page(page)
-    except PageNotAnInteger:
-        objects = paginator.page(1)
-    except EmptyPage:
-        objects = paginator.page(paginator.num_pages)
-
-    return objects
-
-
 
 def home(request):
     if request.method == 'GET':
@@ -81,7 +66,6 @@ def unpublish_post(request, post_id):
     post = Post.objects.get(id=post_id)
     post.published = False
     post.save()
-    print post.published
     return redirect(reverse_lazy('cms:posts_index'))
 
 
@@ -151,7 +135,6 @@ def unpublish_doc(request, doc_id):
     doc = Document.objects.get(id=doc_id)
     doc.published = False
     doc.save()
-    print doc.published
     return redirect(reverse_lazy('cms:docs_index'))
 
 

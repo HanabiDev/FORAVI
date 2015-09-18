@@ -8,13 +8,6 @@
     {% endif %}
 {% endblock %}
 
-    {% block imports %}
-        {{form.media}}
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chosen-bootstrap.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/creation-styles.css' %}">
-    {% endblock %}
-
     {% block main_panel %}
         {% block section_title %}
             <a class="navbar-brand" href="{% url 'cms:home' %}" style="border-right:1px solid #ddd">

@@ -2,6 +2,8 @@
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django import forms
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import redirect
 
 
 class AccountForm(UserChangeForm):
@@ -23,8 +25,7 @@ class AccountForm(UserChangeForm):
             'last_name':forms.TextInput(attrs={'readonly':'readonly', 'placeholder':'Apellidos', 'class':'form-control'}),
             'username':forms.TextInput(attrs={'readonly':'readonly', 'placeholder':'Usuario', 'class':'form-control'}),
             'email':forms.EmailInput(attrs={'placeholder':'Correo electrónico', 'class':'form-control'}),
-            'avatar': forms.FileInput(attrs={'class':'hidden'}),
-            'password': forms.Textarea(attrs={'readonly':'readonly','class':'hidden'}),
+            'avatar': forms.FileInput(attrs={'class':'hidden'})
         }
 
 
@@ -38,3 +39,4 @@ class CustomPasswordChangeForm(PasswordChangeForm):
             self.fields['old_password'].widget = forms.PasswordInput(attrs={'placeholder':'Contraseña antigua', 'class':'form-control'})
             self.fields['new_password1'].widget = forms.PasswordInput(attrs={'placeholder':'Nueva contraseña', 'class':'form-control'})
             self.fields['new_password2'].widget = forms.PasswordInput(attrs={'placeholder':'Confirmación', 'class':'form-control'})
+
