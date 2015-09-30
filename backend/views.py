@@ -11,7 +11,7 @@ from backend.forms import AccountForm, CustomPasswordChangeForm
 
 
 def home(request):
-    return render_to_response('index.html')
+    return render_to_response('backend_index.html')
 
 
 
@@ -28,7 +28,7 @@ def login_user(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect(reverse_lazy('backend_home'))
+                    return redirect(reverse_lazy('cms:home'))
                 error = 'Usuario bloqueado'
             else:
                 error = 'Credenciales no válidas'

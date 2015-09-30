@@ -1,0 +1,149 @@
+{% load static %}
+{% load humanize %}
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>FORAVI - Fondo de empleados de ahorro y vivienda de la UPTC</title>
+
+        <link href="{% static 'frontend/css/bootstrap.css' %}" rel="stylesheet" />
+
+        <link href="{% static 'frontend/css/pe-icon-7-stroke.css' %}" rel="stylesheet" />
+        <link href="{% static 'frontend/css/ct-navbar.css' %}" rel="stylesheet" />
+
+        <!--     Font Awesome     -->
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    </head>
+
+    <body>
+        {% block navbar %}
+        <div id="navbar-full">
+            <div id="navbar">
+                <nav class="navbar navbar-ct-blue navbar-fixed-top" role="navigation">
+
+                  <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#rightbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand navbar-brand-logo" href="/">
+                            <div class="logo" style="margin-left:10px;">
+                                <img src="{% static 'assets/img/logo.png' %}" alt="Logo Foravi" height="70px"/>
+                            </div>
+                            <div class="brand" style="width:auto; text-shadow: 1px black;">
+                                <div class="hidden-sm hidden-md hidden-lg">
+                                    <h4 style="margin:0;">
+                                        FORAVI
+                                    </h4>
+                                    <small>Uptc</small>
+                                </div>
+                                <div class="hidden-sm hidden-lg hidden-xs">
+                                    <h4 style="margin:0;font-size:16px;">
+                                        Fondo de empleados de ahorro y vivienda
+                                    </h4>
+                                    <small style="font-size:12px">Universidad Pedagógica y Tecnológica de Colombia</small>
+                                </div>
+                                <div class="hidden-xs hidden-md">
+                                    <h4 style="margin:0;">
+                                        Fondo de empleados de ahorro y vivienda
+                                    </h4>
+                                    <small>Universidad Pedagógica y Tecnológica de Colombia</small>
+                                </div>
+                            </div>
+                      </a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="rightbar">
+                      <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="pe-7s-home"></i>
+                                        <p>Fondo <b class="caret"></b></p>
+                                    </a>
+                                  <ul class="dropdown-menu">
+                                    <li><a href="#">¿Qué es FORAVI?</a></li>
+                                    <li><a href="#">Organización</a></li>
+                                    <li><a href="#">Convenios</a></li>
+                                    <li><a href="#">Beneficios</a></li>
+                                    <li><a href="#">Vinculación</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                  </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="pe-7s-portfolio"></i>
+                                    <p>Portafolio</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'frontend:news_index' %}">
+                                    <i class="pe-7s-news-paper"></i>
+                                    <p>Noticias</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="pe-7s-notebook"></i>
+                                    <p>Normatividad</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="pe-7s-chat"></i>
+                                    <p>Contacto</p>
+                                </a>
+                            </li>
+                       </ul>
+
+                    </div><!-- /.navbar-collapse -->
+                  </div><!-- /.container-fluid -->
+                </nav>
+            </div>
+        </div>
+        {% endblock %}
+
+        <div class="main" style="margin-top:120px">
+            <div class="container" style="padding: 0px 20px 40px 20px">
+                <div class="row">
+                {% block content %}
+                    
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid" style="border-top:1px solid #ddd">
+            <div class="row footer text-center">
+                <div class="col-md-4">
+                    <img src="{% static 'assets/img/logo.png' %}" class="mob-logo" height="50px;" style="margin:-35px 10px 0 0;">
+                    <p style="display: inline-block; margin-top:10px">
+                        Fondo de empleados de ahorro y vivienda <br>
+                        <small>Universidad Pedagógica y Tecnológica de Colombia</small>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    
+                </div>
+                <div class="col-md-5" style="padding-top:17px">
+                    <span style="margin-top:15px;">
+                        &copy; 2105 FORAVI - UPTC. Sitio desarrollado por 
+                        <img src="{% static 'assets/img/logo_hanabi_b.png' %}" height="45px;" style="margin:-5px 10px 0">
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+    <script src="{% static 'frontend/js/jquery-1.10.2.js' %}" type="text/javascript"></script>
+	<script src="{% static 'frontend/js/bootstrap.js' %}" type="text/javascript"></script>
+	<script src="{% static 'frontend/js/ct-navbar.js' %}"></script>
+</html>

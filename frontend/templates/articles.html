@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+    <div class="col-sm-9">
+        <h2 class="heading">
+            Noticias
+            <br>
+            <small>Manténgase al día con las noticias del fondo</small>
+            <hr style="border:3px solid #156282;">
+        </h2>
+        <div class="post-list">
+            {% for article in articles %}
+                <div class="post-prev">
+                    <div class="row">
+                        <div class="col-xs-2 text-center" style="padding-top:25px;">
+                            <h3 class="post-date">
+                                <p class="category">{{article.date|date:"M" }}</p>
+                                {{article.date|date:"d" }}<br>
+                                <small>{{article.date|date:"Y" }}</small>
+                            </h3>
+                        </div>
+                        <div class="col-xs-10 text-justify" style="padding-right:40px;border-left:1px solid #ddd">
+                            <h3 class="post-prev-title">
+                                <a href="{% url 'frontend:post' article.slug %}">{{article.title}}</a>
+                            </h3>
+                            {{article.abstract|safe}}
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+        <hr style="border:3px solid #156282;">
+        <div class="row">
+            <div class="col-xs-12">
+                <nav>
+                  <ul class="pager">
+                    {% if articles.has_previous %}
+                        <li style="margin-right:20px;">
+                            <a href="?page={{ articles.previous_page_number }}">Anterior</a>
+                        </li>
+                    {% endif %}
+
+                    <span class="current">
+                        Página {{ articles.number }} de {{ articles.paginator.num_pages }}
+                    </span>
+
+                    {% if articles.has_next %}
+                        <li style="margin-left:20px;">
+                            <a href="?page={{ articles.next_page_number }}">Siguiente</a>
+                        </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endblock %}
