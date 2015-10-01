@@ -25,4 +25,5 @@ class DocumentForm(forms.ModelForm):
           'file':forms.ClearableFileInput(attrs={'placeholder':'Archivo', 'class':'form-control'}),
           'published':forms.CheckboxInput(attrs={'data-toggle':'switch'}),
           'related_documents':forms.SelectMultiple(attrs={'class':'form-control'}),
+          'related_articles':forms.SelectMultiple(attrs={'class':'form-control'}),
         }

@@ -567,17 +567,37 @@ h4{
 
 .post-date small{font-size: 50%;}
 
-.post-list div:last-child hr{display: none} 
+.post-list .foot-line:last-child{display: none;} 
 
-.post-prev-title a, 
-.post-prev-title a:hover, 
-.post-prev-title a:focus {
+.main a, 
+.main a:hover, 
+.main a:focus {
     color: #71B81A;
     text-decoration: none;
+}
+
+.comment-actions a,
+.comment-actions a:hover,
+.comment-actions a:focus,
+.comment-actions button,
+.comment-actions button:hover,
+.comment-actions button:focus {
+    font-size: 12px;
+    color: #337ab7;
+    text-decoration: none;
+    margin: 0px 3px !important;
+    border: 1px solid #337ab7;
+    padding: 2px 4px;
+    border-radius: 3px;
 }
 
 .footer{
     padding: 20px;
     background: #066992;
     color: #ddd;
+}
+
+.comment p{
+    font-size: 14px;
+    text-align: justify;
 }

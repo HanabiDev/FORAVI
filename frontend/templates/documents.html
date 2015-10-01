@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+    <div class="col-sm-9">
+        <h2 class="heading">
+            Normatividad
+            <br>
+            <small>Consulte todos los documentos de normatividad emitidos por el fondo</small>
+            <hr style="border:3px solid #156282;">
+        </h2>
+        <div class="post-list">
+            {% for document in documents %}
+                <div class="post-prev">
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-2 text-center" style="padding:5px 0;">
+                            <h3 class="post-date">
+                                <p class="category">{{document.date|date:"M" }}</p>
+                                {{document.date|date:"d" }}<br>
+                                <small>{{document.date|date:"Y" }}</small>
+                            </h3>
+                        </div>
+                        <div class="col-xs-9 col-sm-10 text-justify" style="padding-right:40px;border-left:1px solid #ddd">
+                            <h3 class="post-prev-title" style="vertical-align:middle;">
+                                <a href="{% url 'frontend:doc' document.slug %}">{{document.name}}</a>
+                            </h3>
+                            {{document.description|safe}}
+                        </div>
+                    </div>
+                </div>
+                <hr class="foot-line">
+            {% endfor %}
+        </div>
+        <hr style="border:3px solid #156282;">
+        <div class="row">
+            <div class="col-xs-12">
+                <nav>
+                  <ul class="pager">
+                    {% if documents.has_previous %}
+                        <li style="margin-right:20px;">
+                            <a href="?page={{ documents.previous_page_number }}">Anterior</a>
+                        </li>
+                    {% endif %}
+
+                    <span class="current">
+                        Página {{ documents.number }} de {{ documents.paginator.num_pages }}
+                    </span>
+
+                    {% if documents.has_next %}
+                        <li style="margin-left:20px;">
+                            <a href="?page={{ documents.next_page_number }}">Siguiente</a>
+                        </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endblock %}

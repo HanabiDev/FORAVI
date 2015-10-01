@@ -14,22 +14,29 @@
             {% for article in articles %}
                 <div class="post-prev">
                     <div class="row">
-                        <div class="col-xs-2 text-center" style="padding-top:25px;">
+                        <div class="col-xs-3 col-sm-2 text-center" style="padding-top:25px;">
                             <h3 class="post-date">
                                 <p class="category">{{article.date|date:"M" }}</p>
                                 {{article.date|date:"d" }}<br>
                                 <small>{{article.date|date:"Y" }}</small>
+                            <hr>
                             </h3>
+                            {% if article.comment_set.all %}
+                            <h3 class="post-date">
+                                <i class="fa fa-comments"></i> {{article.comment_set.all.count}}
+                                <small class="hidden-xs">Comentarios</small>
+                            </h3>
+                            {% endif %}
                         </div>
-                        <div class="col-xs-10 text-justify" style="padding-right:40px;border-left:1px solid #ddd">
+                        <div class="col-xs-9 col-sm-10 text-justify" style="padding-right:40px;border-left:1px solid #ddd">
                             <h3 class="post-prev-title">
                                 <a href="{% url 'frontend:post' article.slug %}">{{article.title}}</a>
                             </h3>
                             {{article.abstract|safe}}
                         </div>
                     </div>
-                    <hr>
                 </div>
+                <hr class="foot-line">
             {% endfor %}
         </div>
         <hr style="border:3px solid #156282;">
