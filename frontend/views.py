@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response, redirect
 
 # Create your views here.
 from django.template.context import RequestContext
+from django.utils.datetime_safe import datetime
 from FORAVI.utils import paginate_objects
 from cms.models import Post, Comment, Document, Content
 
@@ -71,3 +72,9 @@ def index_documents(request):
 def show_document(request, slug):
     document = Document.objects.get(slug=slug)
     return render_to_response('document.html', {'document' : document }, context_instance=RequestContext(request))
+
+
+def show_simulators(request):
+    months = 12 - datetime.now().month
+    months = []
+    return render_to_response('simulators.html', {}, context_instance=RequestContext(request))

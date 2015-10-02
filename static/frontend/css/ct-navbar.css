@@ -601,3 +601,20 @@ h4{
     font-size: 14px;
     text-align: justify;
 }
+
+.input-group .dropdown-menu:after,
+.input-group .dropdown-menu:before{
+    display: none;
+}
+
+.input-group button{
+    height: 38px;
+}
+
+.simulators .tab-pane{
+    border: 1px solid #ddd !important;
+    border-top: none !important;
+    border-radius: 0 0 5px 5px;
+}
+
+td.small{padding: 0 !important;}
