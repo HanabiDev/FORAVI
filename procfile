@@ -1,1 +1,0 @@
-web: gunicorn FORAVI/wsgi.py --log-file -
