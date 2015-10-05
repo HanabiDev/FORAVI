@@ -75,6 +75,4 @@ def show_document(request, slug):
 
 
 def show_simulators(request):
-    months = 12 - datetime.now().month
-    months = []
-    return render_to_response('simulators.html', {}, context_instance=RequestContext(request))
+    return render_to_response('simulators.html', request.session, context_instance=RequestContext(request))
