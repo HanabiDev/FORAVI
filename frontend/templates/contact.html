@@ -1,0 +1,86 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+{% load frontend_tags %}
+
+{% block title %}Contacto - FORAVI{% endblock %}
+
+{% block styles %}
+<link href="{% static 'frontend/css/styles.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="col-sm-12">
+    <h2 class="heading">
+        Contacto <br>
+        <hr>
+    </h2>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <h2 style="margin-top:0;"><small>Ubíquenos</small></h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d828.0897772963818!2d-73.35511163628581!3d5.551125056594005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1447106121186"
+                    width="100%" height="300" frameborder="0" style="border:0" allowfullscreen>
+            </iframe>
+            <hr style="border:3px solid #156282;">
+            <h4>Fondo de empleados de Ahorro y Vivienda - FORAVI</h4>
+            <p><span class="fa fa-map-marker"></span>&nbsp; Universidad Pedagógica y Tecnológica de Colombia</p>
+            <p><span class="fa fa-phone"></span>&nbsp; Teléfono: (038) 234 6544</p>
+            <p><span class="fa fa-clock-o"></span>&nbsp; Horario de atención: </p>
+            <p style="padding-left:23px;">
+                Lunes a Viernes <br>
+                Mañana: 8:00am a 12:00m <br>
+                Tarde: 2:00pm a 5:00pm
+            </p>
+
+
+
+
+
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <h2 style="margin-top:0;"><small>Escríbanos</small></h2>
+            <div class="well well-lg">
+                {% if mail_sended %}
+                    <p class="alert alert-success">
+                        Su mensaje ha sido enviado, el encargado del área elegida se contactará con usted lo más pronto
+                        posible.
+                    </p>
+                {% else %}
+                    <form action="." method="POST" id="contact-form">
+                        {% csrf_token %}
+                        <label for="name">Nombre completo</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control" placeholder="Nombre completo" name="name" id="name">
+                        </div>
+                        <label for="phone">Teléfono</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                            <input type="text" class="form-control" placeholder="Teléfono" name="phone" id="phone">
+                        </div>
+                        <label for="mail">Correo electrónico</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <input type="text" class="form-control" placeholder="Correo electrónico" name="mail" id="mail">
+                        </div>
+                        <label for="dep">Dependencia</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-send"></i></span>
+                            <select name="dep" id="dep" class="form-control">
+                                <option value="crm@foraviuptc.com">Atención al consumidor</option>
+                                <option value="controlsocial@foraviuptc.com">Comité de control social</option>
+                                <option value="gomexa@hotmail.com">Webmaster</option>
+                            </select>
+                        </div>
+                        <label for="message">Mensaje</label>
+                        <textarea name="message" id="message" class="form-control" cols="30" rows="6" style="resize:none"></textarea>
+                        <p>
+                            <br>
+                            <input type="submit" class="col-xs-12 btn btn-primary" value="Enviar"/>
+                        </p>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

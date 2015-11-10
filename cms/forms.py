@@ -6,7 +6,7 @@ from cms.models import Post, Document
 class PostForm(forms.ModelForm):
 
     class Meta:
-        exclude = ['slug','date']
+        exclude = ['slug','date', 'special']
         model = Post
         widgets={
           'title':forms.TextInput(attrs={'placeholder':'Título', 'class':'form-control'}),
@@ -18,7 +18,7 @@ class PostForm(forms.ModelForm):
 class DocumentForm(forms.ModelForm):
 
     class Meta:
-        exclude = ['slug','date']
+        exclude = ['slug','date', 'special']
         model = Document
         widgets={
           'name':forms.TextInput(attrs={'placeholder':'Nombre', 'class':'form-control'}),

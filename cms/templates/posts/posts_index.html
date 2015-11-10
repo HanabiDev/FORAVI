@@ -77,6 +77,8 @@
                                     </thead>
                                     <tbody>
                                         {% for post in posts %}
+                                        {% if post.special and not user.is_superuser %}
+                                        {% else %}
                                         <tr class="text-center">
                                             <td>{{post.id}}</td>
                                             <td class="text-left">
@@ -102,6 +104,7 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        {% endif %}
                                         {% endfor %}
                                     </tbody>
                                 </table>

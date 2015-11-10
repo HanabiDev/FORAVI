@@ -7,6 +7,7 @@ from redactor.fields import RedactorField
 class Content(models.Model):
     date = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=True, verbose_name=u'Publicado')
+    special = models.BooleanField(default=False)
 
 class Document(Content):
     slug = models.SlugField(unique=True, blank=True)

@@ -4,8 +4,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^', include('frontend.urls', 'frontend')),
     url(r'^admin', include('backend.urls')),
+    url(r'', include('frontend.urls', 'frontend')),
     url(r'^redactor/', include('redactor.urls')),
     url(r'^clientes/', include('clients.urls')),
     url(r'^django-admin/', include(admin.site.urls)),

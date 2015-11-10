@@ -11,8 +11,6 @@ class SiteUser(User):
     ).contribute_to_class(User,'avatar')
 
     def save(self, *args, **kwargs):
-        print("omegaaaaaaaaaaaa")
-        # do anything you need before saving
         super(SiteUser, self).save(*args, **kwargs)
 
 

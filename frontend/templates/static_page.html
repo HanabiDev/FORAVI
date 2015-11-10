@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}{{post.title}} - FORAVI{% endblock %}
+{% block content %}
+    <div class="col-sm-9">
+        <h1 class="heading">
+            {{post.title}}
+        </h1>
+        <hr style="border:3px solid #156282;">
+        <div class="post-content">
+            {{post.abstract|safe}}
+            {{post.content|safe}}
+        </div>
+        <hr style="border:3px solid #156282;">
+        <div class="row">
+            <div class="col-xs-12">
+                <div>
+                    <span style="font-size:20px;font-weight:bold;vertical-align:top;">Compartir este artículo en: </span>
+                    <div style="display:inline-block" class="addthis_sharing_toolbox">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'frontend/js/editable-fields.js' %}"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52f06b8440ed79f8" async="async"></script>
+    <script type="text/javascript">
+        $('.edit-button').click(function(event){
+            event.preventDefault();
+            setEditable($(this), '{{csrf_token}}');
+        });
+    </script>
+{% endblock %}

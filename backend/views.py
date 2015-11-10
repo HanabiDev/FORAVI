@@ -11,7 +11,7 @@ from backend.forms import AccountForm, CustomPasswordChangeForm
 
 
 def home(request):
-    return render_to_response('backend_index.html')
+    return render_to_response('backend_index.html', request.session, context_instance=RequestContext(request))
 
 
 

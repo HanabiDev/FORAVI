@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}{{post.title}} - FORAVI{% endblock %}
+{% block content %}
+    <div class="col-sm-9">
+        <h2 class="heading">
+            <p class="category">Servicios</p>
+            {{post.title}}
+        </h2>
+        <hr style="border:3px solid #156282;">
+        <div class="post-content">
+            {{post.abstract|safe}}
+            {{post.content|safe}}
+        </div>
+        <hr style="border:3px solid #156282;">
+        <div>
+            <span style="font-size:20px;font-weight:bold;vertical-align:top;">Compartir este artículo en: </span>
+            <div style="display:inline-block" class="addthis_sharing_toolbox">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-6">
+                    <h4>Artículos relacionados</h4>
+                    <hr>
+                    <ul>
+                        {% for relA in post.related_articles.all %}
+                            <li><a href="{% url 'frontend:post' relA.slug %}">{{relA.title}}</a></li>
+                        {% empty %}
+                            {% for relB in post.related.all%}
+                            <li><a href="{% url 'frontend:post' relB.slug %}">{{relB.title}}</a></li>
+                            {% empty %}
+                            No se encontraron artículos
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <h4>Normas relacionadas</h4>
+                    <hr>
+                    <ul>
+                        {% for relA in post.related_documents.all %}
+                            <li><a href="{% url 'frontend:doc' relA.slug %}">{{relA.name}}</a></li>
+                        {% empty %}
+                            {% for relB in post.docs.all %}
+                            <li><a href="{% url 'frontend:doc' relB.slug %}">{{relB.name}}</a></li>
+                            {% empty %}
+                            No se encontraron normas
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'frontend/js/editable-fields.js' %}"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52f06b8440ed79f8" async="async"></script>
+    <script type="text/javascript">
+        $('.edit-button').click(function(event){
+            event.preventDefault();
+            setEditable($(this), '{{csrf_token}}');
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,9 @@
+Se ha registrado una solicitud un mensaje a través del sitio web.
+
+{{message}}
+
+A continuación se detalla la información de contacto del visitante:
+
+    Nombre: {{name}}
+    Teléfono: {{phone}}
+    Email: {{mail}}

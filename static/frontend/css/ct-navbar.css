@@ -554,11 +554,13 @@ h4{
     height: 0;
     width: 0;
     position: absolute;
-    margin-left: 329px;
+    margin-left: 342px;
     margin-top: -5px;
     border-top-color: #FFF;
     z-index: -1;
 }
+
+.dropdown-menu .divider{margin:0;}
 
 
 .post-date{line-height: 20px; margin: 0}
@@ -618,3 +620,20 @@ h4{
 }
 
 td.small{padding: 0 !important;}
+
+#contact-form .input-group-addon,
+#contact-form .form-control{
+    border: none;
+    background: #FFF;
+}
+
+#contact-form label:not(:first-child){margin-top:20px;}
+
+.external{
+    background:#EAEAEA;
+    padding: 20px 0;
+}
+
+.external a{
+    margin: 0 20px;
+}
