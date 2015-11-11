@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django_resized.forms import ResizedImageField
 
-
 class SiteUser(User):
     ResizedImageField(
         size=[150, 150], crop=['middle', 'center'], upload_to='media/uploads/avatars',
@@ -13,9 +12,8 @@ class SiteUser(User):
     def save(self, *args, **kwargs):
         super(SiteUser, self).save(*args, **kwargs)
 
-
     def __unicode__(self):
-        return self.fisrt_name + ' '+ self.last_name
+        return self.first_name + ' '+ self.last_name
 
     class Meta:
         proxy = True

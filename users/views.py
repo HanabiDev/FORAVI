@@ -38,7 +38,7 @@ def search_users(request):
     users = User.objects.filter(Q(username__contains=key) | Q(email__contains=key) | Q(first_name__contains=key) | Q(last_name__contains=key)).order_by('-last_name')
     count = users.count()
     page = request.GET.get('page')
-    posts = paginate_objects(page,users)
+    users = paginate_objects(page,users)
     return render_to_response('users_index.html', {'key':key,'count':count, 'users' : users }, context_instance=RequestContext(request))
 
 

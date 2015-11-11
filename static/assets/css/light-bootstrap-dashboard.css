@@ -3385,3 +3385,14 @@ body > .navbar-collapse[data-color="purple"]:after {
     -webkit-overflow-scrolling: touch;
   }
 }
+.nav-tabs a{
+    color: #71B81A;
+    text-decoration: none;
+}
+
+.tab-pane{
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+}

@@ -1,0 +1,92 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Cargar reportes{% endblock %}
+
+{% block imports %}
+    <style type="text/css">
+        .square {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 10vw;
+            height: 10vw;
+            min-width: 120px;
+            min-height: 120px;
+            display: inline-block;
+            margin: 20px 10px 20px 0;
+        }
+        .square h2 i{
+            width: 100%;
+        }
+    </style>
+{% endblock %}
+
+{% block main_panel %}
+    {% block section_title %}
+        <a class="navbar-brand" href="{% url 'cms:home' %}" style="border-right:1px solid #ddd">
+            <i class="pe-7s-piggy"></i> Financiero
+        </a>
+    {% endblock %}
+    {% block breadcrumbs %}
+        <li><a href="{% url 'backend_home' %}">Inicio</a></li>
+        <li><a href="{% url 'finantial:finantial_home' %}">Financiero</a></li>
+        <li class="active">Cargar reportes</li>
+    {% endblock %}
+
+    {% block content%}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-md-3 col-xs-12" style="margin-bottom:20px;">
+                            <a href="{% url 'finantial:finantial_home' %}" style="width:100%;" class="btn btn-danger btn-fill">
+                                <i class="fa fa-chevron-left"></i> Volver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h3>
+                                <p class="category">Financiero</p>
+                                Cargar reportes
+                                <br>
+                                <small>Cargar archivos CSV con reportes financieros</small>
+                            </h3>
+                        </div>
+                        <div class="content">
+                           <div>
+                              <!-- Nav tabs -->
+                              <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#clients" aria-controls="home" role="tab" data-toggle="tab">Asociados</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#pres" aria-controls="home" role="tab" data-toggle="tab">Préstamos</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#depo" aria-controls="profile" role="tab" data-toggle="tab">Depósitos</a>
+                                </li>
+                              </ul>
+
+                              <!-- Tab panes -->
+                              <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="clients">
+                                    <form action="{% url 'finantial:load_clients' %}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" name="datafile"/>
+                                        <input type="submit" value="Cargar"/>
+                                    </form>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="pres">Hola 2</div>
+                                <div role="tabpanel" class="tab-pane" id="depo">Hola 3</div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+{% endblock %}

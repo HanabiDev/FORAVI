@@ -77,7 +77,7 @@
                 </div>
                 <div class="comments" style="padding-top:40px;">
                     {% for comment in post.comment_set.all %}
-                        <div class="row comment">
+                        <div class="row comment" id="comment-{{comment.id}}">
                             <div class="col-xs-2 col-md-1 text-center" style="padding-right:0;">
                                 <img class="img-circle" src="/media/{{comment.author.avatar}}" height="40px">
                             </div>

@@ -111,7 +111,7 @@
                                           <ul class="pager">
                                             {% if users.has_previous %}
                                                 <li style="margin-right:20px;">
-                                                    <a href="?page={{ users.previous_page_number }}">Anterior</a>
+                                                    <a href="{% if key%}?key={{key}}&{% else %}?{% endif %}page={{ users.previous_page_number }}">Anterior</a>
                                                 </li>
                                             {% endif %}
 
@@ -121,7 +121,7 @@
 
                                             {% if users.has_next %}
                                                 <li style="margin-left:20px;">
-                                                    <a href="?page={{ users.next_page_number }}">Siguiente</a>
+                                                    <a href="{% if key%}?key={{key}}&{% else %}?{% endif %}page={{ users.next_page_number }}">Siguiente</a>
                                                 </li>
                                             {% endif %}
                                           </ul>

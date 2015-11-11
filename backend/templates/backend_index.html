@@ -1,5 +1,7 @@
 {% extends "base/base.html" %}
 {% load static %}
+ {% load humanize %}
+{% load dashboard_tags %}
 {% block title %}
     Dashboard
 {% endblock %}
@@ -15,75 +17,162 @@
     {% endblock %}
     {% block content%}
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="header">
-                            <h3>
-                                <p class="category">Cuenta</p>
-                                Administrar cuenta
-                                <br>
-                                <small>Modifique datos personales de su cuenta</small>
-                            </h3>
-                        </div>
-                        <div class="content">
-                            {% if message %}
-                                <div class="alert alert-success alert-dismissible fade in">
-                                    <button type="button" style="color:#000" class="close" data-dismiss="alert" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    {{message}}
-                                </div>
-                            {% endif %}
-                            <form action="." method="POST" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                {% for field in form %}
-                                    <div class="form-group col-md-6 col-xs-12">
-                                        <label>{{field.label}}</label>
-                                        {% if field.errors %}
-                                            <span class="text-danger">{{field.errors}}</span>
-                                        {% endif %}
-                                        {{field}}
-                                    </div>
-                                {% endfor %}
-                                <div class="col-md-12">
-                                    <a href="{% url 'update_password' %}" class="col-xs-12 btn btn-primary btn-fill pull-right">
-                                        Cambiar contraseña
-                                    </a>
-                                </div>
-                                <p class="col-md-12" style="margin-top:20px;">
-                                    <button type="submit" class="btn btn-success btn-fill pull-right">
-                                        Guardar cambios
-                                    </button>
-                                </p>
-                                <div class="clearfix"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-user">
-                        <div class="image">
-                            <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
-                        </div>
-                        <div class="content">
-                            <div class="author">
-                                <img class="avatar border-gray" src="/media/{{user.avatar}}" alt="..."/>
+                        <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Email Statistics</h4>
+                                <p class="category">Last Campaign Performance</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
 
-                                <h4 class="title">{{user.first_name}} {{user.last_name}}<br />
-                                     <small>{{user.username}}</small>
-                                </h4>
+                                <div class="footer">
+                                    <div class="legend">
+                                        <i class="fa fa-circle text-info"></i> Open
+                                        <i class="fa fa-circle text-danger"></i> Bounce
+                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <hr>
-                        <div class="text-center">
-                            <button id="change-photo-btn" class="btn btn-simple"><i class="fa fa-edit"></i> Cambiar imagen de perfil</button>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Users Behavior</h4>
+                                <p class="category">24 Hours performance</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartHours" class="ct-chart"></div>
+                                <div class="footer">
+                                    <div class="legend">
+                                        <i class="fa fa-circle text-info"></i> Open
+                                        <i class="fa fa-circle text-danger"></i> Click
+                                        <i class="fa fa-circle text-warning"></i> Click Second Time
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-history"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title">2014 Sales</h4>
+                                <p class="category">All products including Taxes</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartActivity" class="ct-chart"></div>
+
+                                <div class="footer">
+                                    <div class="legend">
+                                        <i class="fa fa-circle text-info"></i> Tesla Model S
+                                        <i class="fa fa-circle text-danger"></i> BMW 5 Series
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-check"></i> Data information certified
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title">Últimos comentarios</h4>
+                                <p class="category">Comentarios en noticias y documentos</p>
+                            </div>
+                            <div class="content">
+                                <div class="table-full-width">
+                                    <table class="table" style="margin-bottom:0;">
+                                        <tbody>
+                                            {% get_last_comments as comments %}
+                                            {% if comments %}
+                                                {% for comment in comments %}
+                                                    <tr>
+                                                        <td>
+                                                                <p>
+                                                                    <a style="color:#666" target="_blank" href="{% if comment.content.post %}
+                                                                        {% url 'frontend:post' comment.content.post.slug %}#comment-{{comment.id}}
+                                                                     {% else %}
+                                                                        {% url 'frontend:doc' comment.content.document.slug %}#comment-{{comment.id}}
+                                                                     {% endif %}">
+                                                                        <i>{{comment.message|truncatechars:50 }}</i>
+                                                                    </a>
+                                                                </p>
+                                                                <small>
+                                                                    <b><i class="fa fa-user"></i> {{comment.author.first_name}} {{comment.author.last_name}}</b>
+                                                                    &nbsp;|&nbsp;<i class="fa fa-clock-o"></i> {{comment.date|naturaltime}}
+                                                                    &nbsp;|&nbsp;<i class="fa fa-file-text"></i> {{comment.content.post|truncatechars:25}}{{comment.content.document|truncatechars:25}}
+                                                                </small>
+
+
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="footer">
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-history"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     {% endblock %}
+{% endblock %}
+
+{% block js %}
+    <!--  Charts Plugin -->
+	<script src="{% static 'assets/js/chartist.min.js' %}"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="{% static 'assets/js/bootstrap-notify.js' %}"></script>
+
+
+	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+	<script src="{% static 'assets/js/demo.js' %}"></script>
+
+	<script type="text/javascript">
+    	$(document).ready(function(){
+
+        	demo.initChartist();
+
+        	/*$.notify({
+            	icon: 'pe-7s-gift',
+            	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+
+            },{
+                type: 'info',
+                timer: 4000
+            });*/
+
+    	});
+	</script>
 {% endblock %}
 

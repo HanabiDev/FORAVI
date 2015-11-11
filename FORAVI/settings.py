@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'redactor',
     'backend',
     'cms',
+    'finantial',
     'users',
     'clients',
     'frontend',

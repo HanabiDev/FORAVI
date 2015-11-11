@@ -118,7 +118,7 @@
                                           <ul class="pager">
                                             {% if docs.has_previous %}
                                                 <li style="margin-right:20px;">
-                                                    <a href="?page={{ docs.previous_page_number }}">Anterior</a>
+                                                    <a href="{% if key%}?key={{key}}&{% else %}?{% endif %}page={{ docs.previous_page_number }}">Anterior</a>
                                                 </li>
                                             {% endif %}
 
@@ -128,7 +128,7 @@
 
                                             {% if docs.has_next %}
                                                 <li style="margin-left:20px;">
-                                                    <a href="?page={{ docs.next_page_number }}">Siguiente</a>
+                                                    <a href="{% if key%}?key={{key}}&{% else %}?{% endif %}page={{ docs.next_page_number }}">Siguiente</a>
                                                 </li>
                                             {% endif %}
                                           </ul>
