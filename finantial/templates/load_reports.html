@@ -58,28 +58,94 @@
                            <div>
                               <!-- Nav tabs -->
                               <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active">
+                                <li role="presentation" {% if tab == 'clients'%}class="active"{% endif %}>
                                     <a href="#clients" aria-controls="home" role="tab" data-toggle="tab">Asociados</a>
                                 </li>
-                                <li role="presentation">
+                                <li role="presentation" {% if tab == 'pres'%}class="active"{% endif %}>
                                     <a href="#pres" aria-controls="home" role="tab" data-toggle="tab">Préstamos</a>
                                 </li>
-                                <li role="presentation">
+                                <li role="presentation" {% if tab == 'depo'%}class="active"{% endif %}>
                                     <a href="#depo" aria-controls="profile" role="tab" data-toggle="tab">Depósitos</a>
                                 </li>
                               </ul>
 
                               <!-- Tab panes -->
                               <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="clients">
+                                <div role="tabpanel" class="tab-pane {% if tab == 'clients'%}active{% endif %}" id="clients">
+                                    <h4>Cargar reportes de asociados</h4>
+                                    <hr>
+                                    {% if loaded_cli %}
+                                         <div class="alert alert-success alert-dismissible fade" style="background:#3472F7">
+                                            <button type="button" style="color:#000" class="close" data-dismiss="alert" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <span style="">
+                                                La información se ha cargado correctamente.
+                                                <a class="btn btn-info btn-fill" href="{% url 'users:users_index' %}" style="color:white;margin-left:10px;">
+                                                    Ver usuarios <i class="fa fa-chevron-right"></i>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    {% endif %}
                                     <form action="{% url 'finantial:load_clients' %}" method="POST" enctype="multipart/form-data">
                                         {% csrf_token %}
-                                        <input type="file" name="datafile"/>
-                                        <input type="submit" value="Cargar"/>
+                                        <input type="file" class="hidden" name="datafile" id="client-input"/>
+                                        <span type="submit" class="open-btn btn btn-primary" data-control="#client-input">
+                                            <i class="fa fa-upload"></i> Elegir archivo
+                                        </span>
+                                        <input type="submit" class="btn btn-primary btn-fill" value="Subir"/>
                                     </form>
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="pres">Hola 2</div>
-                                <div role="tabpanel" class="tab-pane" id="depo">Hola 3</div>
+                                <div role="tabpanel" class="tab-pane {% if tab == 'pres'%}active{% endif %}" id="pres">
+                                    <h4>Cargar reportes de préstamos</h4>
+                                    <hr>
+                                    {% if loaded_cre %}
+                                         <div class="alert alert-success alert-dismissible fade" style="background:#3472F7">
+                                            <button type="button" style="color:#000" class="close" data-dismiss="alert" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <span style="">
+                                                La información se ha cargado correctamente.
+                                                <a class="btn btn-info btn-fill" href="{% url 'users:users_index' %}" style="color:white;margin-left:10px;">
+                                                    Ver usuarios <i class="fa fa-chevron-right"></i>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    {% endif %}
+                                    <form action="{% url 'finantial:load_credits' %}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" class="hidden" name="datafile" id="credit-input"/>
+                                        <span type="submit" class="open-btn btn btn-primary" data-control="#credit-input">
+                                            <i class="fa fa-upload"></i> Elegir archivo
+                                        </span>
+                                        <input type="submit" class="btn btn-primary btn-fill" value="Subir"/>
+                                    </form>
+                                </div>
+                                <div role="tabpanel" class="tab-pane {% if tab == 'depo'%}active{% endif %}" id="depo">
+                                    <h4>Cargar reportes de depósitos</h4>
+                                    <hr>
+                                    {% if loaded_depo %}
+                                         <div class="alert alert-success alert-dismissible fade" style="background:#3472F7">
+                                            <button type="button" style="color:#000" class="close" data-dismiss="alert" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <span style="">
+                                                La información se ha cargado correctamente.
+                                                <a class="btn btn-info btn-fill" href="{% url 'users:users_index' %}" style="color:white;margin-left:10px;">
+                                                    Ver usuarios <i class="fa fa-chevron-right"></i>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    {% endif %}
+                                    <form action="{% url 'finantial:load_deposits' %}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" class="hidden" name="datafile" id="deposit-input"/>
+                                        <span type="submit" class="open-btn btn btn-primary" data-control="#deposit-input">
+                                            <i class="fa fa-upload"></i> Elegir archivo
+                                        </span>
+                                        <input type="submit" class="btn btn-primary btn-fill" value="Subir"/>
+                                    </form>
+                                </div>
                               </div>
                             </div>
                         </div>
@@ -89,4 +155,33 @@
         </div>
     {% endblock %}
 
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(".alert").slideDown(1000, function(){
+            $(this).fadeTo(1000, 1);
+        });
+
+        window.setTimeout(function() {
+            $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+                $(this).remove();
+            });
+        }, 5000);
+
+        });
+
+        $('.open-btn').click(function(){
+            input = $(this).data('control');
+            $(input).click();
+        });
+
+        $('input[type="file"]').change(function(){
+            $('span[data-control="#'+$(this).attr('id')+'"]').html('<i class="fa fa-check"></i> Archivo listo')
+            .removeClass('btn-primary').addClass('btn-success btn-fill')
+        });
+    </script>
 {% endblock %}

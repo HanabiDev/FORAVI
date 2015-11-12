@@ -31,13 +31,16 @@
                         <div class="row">
                             <div class="col-md-8 col-xs-12">
                                 <form style="margin-bottom:10px;" action="{% url 'users:search_users' %}" method="GET">
-                                  <div class="input-group">
+                                    <div class="input-group">
                                       <input type="text" name="key" class="form-control" placeholder="Buscar por nombres, apellidos, usuario o email..." value="{{key}}" required>
-                                      <span class="input-group-btn">
-                                        <button class="btn btn-primary btn-fill" type="submit">
+                                      <div class="input-group-btn">
+                                          <a class="btn btn-danger btn-fill" href="{% url 'users:users_index' %}">
+                                            <i class="fa fa-times"></i>
+                                          </a>
+                                          <button class="btn btn-primary btn-fill" type="submit">
                                             <i class="fa fa-search"></i> Buscar
-                                        </button>
-                                      </span>
+                                          </button>
+                                      </div>
                                     </div>
                                 </form>
                             </div>

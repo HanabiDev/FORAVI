@@ -4,7 +4,9 @@ urlpatterns = [
     url(r'^$', 'finantial.views.home', name='finantial_home'),
 
     url(r'^cargar/$', 'finantial.views.load_reports', name='load'),
-    url(r'^cargar-clientes/$', 'finantial.views.load_clients', name='load_clients'),
+    url(r'^cargar-asociados/$', 'finantial.views.load_clients', name='load_clients'),
+    url(r'^cargar-prestamos/$', 'finantial.views.load_credits', name='load_credits'),
+    url(r'^cargar-depositos/$', 'finantial.views.load_deposits', name='load_deposits'),
 
 
     url(r'^documentos/$', 'cms.views.index_docs', name='docs_index'),

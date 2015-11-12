@@ -26,7 +26,7 @@ def create_user(request):
 
 def index_users(request):
     if request.method == 'GET':
-        users = User.objects.filter(~Q(is_superuser=True)).order_by('last_name')
+        users = User.objects.filter(~Q(is_superuser=True)).order_by('first_name')
         count = users.count()
         page = request.GET.get('page')
         users = paginate_objects(page,users)
@@ -35,7 +35,7 @@ def index_users(request):
 
 def search_users(request):
     key = request.GET.get('key')
-    users = User.objects.filter(Q(username__contains=key) | Q(email__contains=key) | Q(first_name__contains=key) | Q(last_name__contains=key)).order_by('-last_name')
+    users = User.objects.filter(Q(username__contains=key) | Q(email__contains=key) | Q(first_name__contains=key) | Q(last_name__contains=key)).order_by('first_name')
     count = users.count()
     page = request.GET.get('page')
     users = paginate_objects(page,users)

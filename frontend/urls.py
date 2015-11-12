@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'editar-comentario/(?P<comment_id>\d+)/$', 'frontend.views.update_comment', name='edit_comment'),
     url(r'eliminar-comentario/(?P<comment_id>\d+)/$', 'frontend.views.delete_comment', name='remove_comment'),
 
-    url(r'^(?P<page>[-\w]+)/$', 'frontend.views.load_static_page', name='static_page'),
+    url(r'(?P<page>[-\w]+)/$', 'frontend.views.load_static_page', name='static_page'),
 ]
 
 

@@ -35,9 +35,12 @@
                                   <div class="input-group">
                                       <input type="text" name="key" class="form-control" placeholder="Buscar por nombre..." value="{{key}}" required>
                                       <span class="input-group-btn">
-                                        <button class="btn btn-primary btn-fill" type="submit">
+                                          <a class="btn btn-danger btn-fill" href="{% url 'cms:docs_index' %}">
+                                            <i class="fa fa-times"></i>
+                                          </a>
+                                          <button class="btn btn-primary btn-fill" type="submit">
                                             <i class="fa fa-search"></i> Buscar
-                                        </button>
+                                          </button>
                                       </span>
                                     </div>
                                 </form>

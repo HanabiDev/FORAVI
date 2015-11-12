@@ -34,11 +34,14 @@
                                 <form style="margin-bottom:10px;" action="{% url 'cms:search_posts' %}" method="GET">
                                   <div class="input-group">
                                       <input type="text" name="key" class="form-control" placeholder="Buscar por título..." value="{{key}}" required>
-                                      <span class="input-group-btn">
-                                        <button class="btn btn-primary btn-fill" type="submit">
+                                      <div class="input-group-btn">
+                                          <a class="btn btn-danger btn-fill" href="{% url 'cms:posts_index' %}">
+                                            <i class="fa fa-times"></i>
+                                          </a>
+                                          <button class="btn btn-primary btn-fill" type="submit">
                                             <i class="fa fa-search"></i> Buscar
-                                        </button>
-                                      </span>
+                                          </button>
+                                      </div>
                                     </div>
                                 </form>
                             </div>
@@ -114,7 +117,7 @@
                                           <ul class="pager">
                                             {% if posts.has_previous %}
                                                 <li style="margin-right:20px;">
-                                                    <a href="?page={{ posts.previous_page_number }}">Anterior</a>
+                                                    <a href="{% if key%}?key={{key}}&{% else %}?{% endif %}page={{ posts.previous_page_number }}">Anterior</a>
                                                 </li>
                                             {% endif %}
 
@@ -124,7 +127,7 @@
 
                                             {% if posts.has_next %}
                                                 <li style="margin-left:20px;">
-                                                    <a href="?page={{ posts.next_page_number }}">Siguiente</a>
+                                                    <a href="{% if key%}?key={{key}}&{% else %}?{% endif %}page={{ posts.next_page_number }}">Siguiente</a>
                                                 </li>
                                             {% endif %}
                                           </ul>
