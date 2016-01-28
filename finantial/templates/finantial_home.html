@@ -22,7 +22,7 @@
 
 {% block main_panel %}
     {% block section_title %}
-        <a class="navbar-brand" href="{% url 'cms:home' %}" style="border-right:1px solid #ddd">
+        <a class="navbar-brand" href="{% url 'finantial:finantial_home' %}" style="border-right:1px solid #ddd">
             <i class="pe-7s-piggy"></i> Financiero
         </a>
     {% endblock %}
@@ -51,7 +51,7 @@
                                     <h2><i class="fa fa-upload"></i></h2>
                                     <p>Cargar</p>
                                 </a>
-                                <a class="btn btn-primary square" href="{% url 'cms:posts_index'%}">
+                                <a class="btn btn-primary square" href="{% url 'finantial:query'%}">
                                     <h2><i class="fa fa-search"></i></h2>
                                     <p>Consultar</p>
                                 </a>

@@ -398,14 +398,8 @@ body > .navbar-collapse[data-color="blue"]:after {
 }
 .sidebar[data-color="azure"]:after,
 body > .navbar-collapse[data-color="azure"]:after {
-  background: #1DC7EA;
-  background: -moz-linear-gradient(top, #1DC7EA 0%, #4091ff 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1DC7EA), color-stop(100%, #4091ff));
-  background: -webkit-linear-gradient(top, #1DC7EA 0%, #4091ff 100%);
-  background: -o-linear-gradient(top, #1DC7EA 0%, #4091ff 100%);
-  background: -ms-linear-gradient(top, #1DC7EA 0%, #4091ff 100%);
-  background: linear-gradient(to bottom, #1DC7EA 0%, #4091ff 100%);
-  background-size: 150% 150%;
+  background: #156282;
+
 }
 .sidebar[data-color="green"]:after,
 body > .navbar-collapse[data-color="green"]:after {

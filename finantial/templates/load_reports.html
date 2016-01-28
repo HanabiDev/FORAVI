@@ -22,7 +22,7 @@
 
 {% block main_panel %}
     {% block section_title %}
-        <a class="navbar-brand" href="{% url 'cms:home' %}" style="border-right:1px solid #ddd">
+        <a class="navbar-brand" href="{% url 'finantial:finantial_home' %}" style="border-right:1px solid #ddd">
             <i class="pe-7s-piggy"></i> Financiero
         </a>
     {% endblock %}
@@ -93,9 +93,10 @@
                                         <span type="submit" class="open-btn btn btn-primary" data-control="#client-input">
                                             <i class="fa fa-upload"></i> Elegir archivo
                                         </span>
-                                        <input type="submit" class="btn btn-primary btn-fill" value="Subir"/>
+                                        <input type="submit" class="btn btn-primary btn-fill send-file" value="Subir"/>
                                     </form>
                                 </div>
+
                                 <div role="tabpanel" class="tab-pane {% if tab == 'pres'%}active{% endif %}" id="pres">
                                     <h4>Cargar reportes de préstamos</h4>
                                     <hr>
@@ -106,8 +107,8 @@
                                             </button>
                                             <span style="">
                                                 La información se ha cargado correctamente.
-                                                <a class="btn btn-info btn-fill" href="{% url 'users:users_index' %}" style="color:white;margin-left:10px;">
-                                                    Ver usuarios <i class="fa fa-chevron-right"></i>
+                                                <a class="btn btn-info btn-fill" href="{% url 'finantial:query' %}" style="color:white;margin-left:10px;">
+                                                    Hacer consultas<i class="fa fa-chevron-right"></i>
                                                 </a>
                                             </span>
                                         </div>
@@ -118,9 +119,10 @@
                                         <span type="submit" class="open-btn btn btn-primary" data-control="#credit-input">
                                             <i class="fa fa-upload"></i> Elegir archivo
                                         </span>
-                                        <input type="submit" class="btn btn-primary btn-fill" value="Subir"/>
+                                        <input type="submit" class="btn btn-primary btn-fill send-file" value="Subir"/>
                                     </form>
                                 </div>
+
                                 <div role="tabpanel" class="tab-pane {% if tab == 'depo'%}active{% endif %}" id="depo">
                                     <h4>Cargar reportes de depósitos</h4>
                                     <hr>
@@ -131,8 +133,8 @@
                                             </button>
                                             <span style="">
                                                 La información se ha cargado correctamente.
-                                                <a class="btn btn-info btn-fill" href="{% url 'users:users_index' %}" style="color:white;margin-left:10px;">
-                                                    Ver usuarios <i class="fa fa-chevron-right"></i>
+                                                <a class="btn btn-info btn-fill" href="{% url 'finantial:query' %}" style="color:white;margin-left:10px;">
+                                                    Hacer consultas <i class="fa fa-chevron-right"></i>
                                                 </a>
                                             </span>
                                         </div>
@@ -143,7 +145,7 @@
                                         <span type="submit" class="open-btn btn btn-primary" data-control="#deposit-input">
                                             <i class="fa fa-upload"></i> Elegir archivo
                                         </span>
-                                        <input type="submit" class="btn btn-primary btn-fill" value="Subir"/>
+                                        <input type="submit" class="btn btn-primary btn-fill send-file" value="Subir"/>
                                     </form>
                                 </div>
                               </div>
@@ -155,6 +157,27 @@
         </div>
     {% endblock %}
 
+{% endblock %}
+
+{% block modal %}
+    <div class="modal fade" id="loading-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Cargando información</h4>
+          </div>
+          <div class="modal-body text-center">
+            <span class="fa-stack fa-lg" style="font-size:60px;">
+                <i class="text-primary fa fa-circle-o-notch fa-spin fa-stack-2x"></i>
+                <i class="text-success fa fa-upload fa-stack-1x"></i>
+            </span><br><br>
+              <p>
+                  La información esta cargando, por favor espere mientras se completa la operación.
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}
 
 {% block js %}
@@ -170,7 +193,7 @@
             $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
                 $(this).remove();
             });
-        }, 5000);
+        }, 10000);
 
         });
 
@@ -182,6 +205,22 @@
         $('input[type="file"]').change(function(){
             $('span[data-control="#'+$(this).attr('id')+'"]').html('<i class="fa fa-check"></i> Archivo listo')
             .removeClass('btn-primary').addClass('btn-success btn-fill')
+        });
+
+        $('.send-file').click(function(event){
+            event.preventDefault();
+            var value = $(this).siblings('input[type="file"]').val();
+            var form = $(this).parent('form')
+
+            if(value===''){
+                alert();
+            }else{
+                $('#loading-modal').modal({
+                  backdrop: 'static',
+                  keyboard: false
+                });
+                form.submit();
+            }
         });
     </script>
 {% endblock %}

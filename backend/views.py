@@ -1,15 +1,18 @@
 #encoding: utf-8
 from django.contrib.auth import logout, authenticate, login
-from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse_lazy
 from django.db.models.query_utils import Q
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
+from FORAVI.auth_validations import is_superuser
 from backend.forms import AccountForm, CustomPasswordChangeForm
 
 
+@login_required(login_url=reverse_lazy('backend_login'))
+@user_passes_test(is_superuser, login_url=reverse_lazy('backend_login'))
 def home(request):
     return render_to_response('backend_index.html', request.session, context_instance=RequestContext(request))
 
@@ -26,10 +29,14 @@ def login_user(request):
         if username and password:
             user = authenticate(username=username, password=password)
             if user is not None:
-                if user.is_active:
+                if user.is_active and user.is_superuser:
                     login(request, user)
-                    return redirect(reverse_lazy('cms:home'))
-                error = 'Usuario bloqueado'
+                    return redirect(reverse_lazy('backend_home'))
+                else:
+                    if not user.is_superuser:
+                        error = 'No posee permisos de administrador'
+                    else:
+                        error = 'Usuario no activo'
             else:
                 error = 'Credenciales no válidas'
         else:

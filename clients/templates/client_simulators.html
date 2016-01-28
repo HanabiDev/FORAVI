@@ -1,0 +1,279 @@
+{% extends 'clients_base.html' %}
+{% load static %}
+
+{% block imports %}
+<link href="{% static 'frontend/css/styles.css' %}" rel="stylesheet">
+<style>
+    .resume{padding:0 30px;}
+    #amorization-form {padding:30px;}
+
+
+    @media print{
+      .sidebar{display: none;}
+      .main-panel{
+        overflow: visible !important;
+        height:29cm !important;
+      }
+      .tab-pane{padding:0;}
+      .external, .footer{display:none;}
+      .simulators .resume{margin-top:0.5cm !important;}
+      .simulators .form-control{display:block !important}
+      .simulators form{display:block}
+      .simulators input, .simulators select{border:none !important;padding:0 !important;}
+      .simulators .input-group-addon{display: none;}
+      .simulators .input-group-btn .btn{border:none; padding:0;height:25px;}
+      #term{width:1cm; !important; margin:0;}
+      .term{width: 1.5cm}
+      .simulators form p{display:none;}
+      #amorization-form{padding-bottom:0; padding-top:0;}
+      .simulators .table-responsive{overflow-y:visible !important;}
+      .simulators .nav-tabs {display: none;}
+      .simulators input{padding:0;border:none;}
+      .sims {width:100%}
+      *{overflow-y: visible;}
+      table { page-break-inside:auto }
+       tr    { page-break-inside:avoid; page-break-after:auto }
+    }
+</style>
+{% endblock %}
+
+{% block main_panel %}
+    {% block breadcrumbs %}
+        <li><a href="{% url 'clients:home' %}">Inicio</a></li>
+        <li class="active">Simuladores de Crédito</li>
+    {% endblock %}
+
+    {% block content%}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <h3>
+                                        <p class="category">Cliente</p>
+                                        Simuladores de Crédito
+                                        <hr>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content">
+
+                            <div class="simulators">
+                                <div>
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active">
+                                            <a href="#amortization" aria-controls="amortization" role="tab" data-toggle="tab">Plan de amortización</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="#quota" aria-controls="quota" role="tab" data-toggle="tab">Valor del crédito</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="amortization">
+                                            <form id="amorization-form" role="form" class='row'>
+                                                <p style="font-size:12px;padding:15px;text-align:justify;">
+                                                    <b>Instrucciones:</b> ingrese el monto del crédito que desea solicitar, ingrese el numero de meses o años durante los cuales va a pagar el crédito y finalmente ingrese la tasa de interés. El simulador le indicará el plan de amortización del crédito. Puede elegir entre una visualización mensual o anual.
+                                                </p>
+                                                <div class='form-group col-sm-3'>
+                                                    <label for="amount">Valor del préstamo</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">$</span>
+                                                        <input type="text" id="amount" class="form-control" value='1,000,000'>
+                                                    </div>
+                                                </div>
+
+                                                <div class='form-group col-sm-3'>
+                                                    <label for="term">Plazo</label>
+                                                    <div class="input-group term">
+                                                        <input type="number" min="1" id="term" class="form-control" value='1'>
+                                                        <div id='termtime' class="input-group-btn">
+                                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                <span class='change'>Años </span><span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="javascript:void(0)">Meses </a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class='form-group col-sm-3'>
+                                                    <label for="rate">Tasa de interés (E.A.)</label>
+                                                    <div class="input-group">
+                                                        <!--input type="number" step='0.1' max="100" id="rate" class="form-control" value='15'-->
+                                                        <select id="rate" class="form-control">
+                                                            <option value="10.5">10.5</option>
+                                                            <option value="11.5">11.5</option>
+                                                            <option value="12.5">12.5</option>
+                                                        </select>
+                                                        <span class="input-group-addon">%</span>
+                                                    </div>
+                                                </div>
+
+                                                <input type="hidden" id="month" value="{% now "m" %}" />
+                                                <input type="hidden" id="year" value="{% now "Y" %}" />
+
+                                                <div class='form-group col-sm-3'>
+                                                    <label style="margin-bottom:12px;">Ver</label>
+                                                    <br>
+                                                    <label style="margin-right:20px;">
+                                                        <input type="radio" name="display" id="display1" value="month" checked>
+                                                        Mensual
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="display" id="display2" value="year">
+                                                        Anual
+                                                    </label>
+                                                </div>
+                                            </form>
+                                            <div class="row resume">
+                                                <div id='summery' class='summery text-center'></div>
+
+                                                <div class='table-responsive'>
+                                                  <table id="schedule" class='table table-bordered table-striped table-hover'>
+                                                  </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane" id="quota">
+                                            <form id="credit-form" role="form" class='row' style="padding:30px;">
+                                                <p style="font-size:12px;padding:15px;text-align:justify;">
+                                                    <b>Instrucciones:</b> ingrese el monto de cuota mensual que considera puede pagar, ingrese el numero de meses o años durante los cuales va a pagar el crédito y finalmente ingrese la tasa de interés. El simulador le indicará cual es el valor de crédito que puede solicitar según su capacidad de pago.
+                                                </p>
+                                                <div class='form-group col-sm-4'>
+                                                    <label for="quota_val">Valor de la cuota</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">$</span>
+                                                        <input type="text" id="quota_val" class="form-control" value='100,000'>
+                                                    </div>
+                                                </div>
+
+                                                <div class='form-group col-sm-4'>
+                                                    <label for="quota_term">Plazo</label>
+                                                    <div class="input-group">
+                                                        <input type="number" min="1" id="quota_term" class="form-control" value='1'>
+                                                        <div id='quota_termtime' class="input-group-btn">
+                                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                <span class='change'>Años </span><span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="javascript:void(0)">Meses </a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class='form-group col-sm-4'>
+                                                    <label for="quota_rate">Tasa de interés (E.A.)</label>
+                                                    <div class="input-group">
+                                                        <input type="number" step='0.1' max="100" id="quota_rate" class="form-control" value='15'>
+                                                        <span class="input-group-addon">%</span>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                            <div class="row" style="padding:0 30px;">
+                                                <div id='credit-value' class='summery text-center'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+{% endblock %}
+
+
+{% block js %}
+  <script src="{% static 'frontend/js/underscore.min.js'%}"></script>
+  <script src="{% static 'frontend/js/finance.js'%}"></script>
+  <script src="{% static 'frontend/js/app.js'%}"></script>
+  <script type="text/javascript">
+    finance.addFormat('COP',
+      {
+        before: '$',
+        after: '',
+        precision: 0,
+        thousand: '.',
+        group: 3, decimal: ',', negative: '-'
+      }
+    );
+  </script>
+  <script type="text/template" id="summery-template">
+
+    <div class='row'>
+      <div class='col-sm-3'>
+      <h3><%- finance.format(rc.monthlyPayment, 'COP') %> </h3>
+        Pago mensual con interés
+      </div>
+      <div class='col-sm-3'>
+        <h3><%- finance.format(rc.totalPayments, 'COP') %> </h3>
+        En <%- rc.totalPaymentsNum %> pagos
+      </div>
+      <div class='col-sm-3'>
+        <h3><%- finance.format(rc.totalInterest, 'COP') %> </h3>
+        Total de intereses pagados
+      </div>
+      <div class='col-sm-3'>
+        <h3><%- rc.payoffDate %> </h3>
+        Fecha de reembolso
+      </div>
+    </div>
+  </script>
+  <script type="text/template" id="credit-value-template">
+    <div class='row'>
+      <div class='col-sm-12'>
+        <h3>El valor del crédito sería de <%- finance.format(rc.credit_val, 'COP') %></h3>
+      </div>
+    </div>
+  </script>
+  <script type="text/template" id="table-template">
+    <thead>
+      <tr>
+        <td class="text-center">No. Cuota</td>
+        <td class="text-center">Fecha</td>
+        <td class="text-center">Pago</td>
+        <td class="text-center">Abono a capital</td>
+        <td class="text-center">Intereses</td>
+        <td class="text-center">Saldo</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% _.each( rc.items, function( item, index ){ %>
+        <tr>
+          <td class="text-center"> <%- index+1 %> </td>
+          <td class="text-center"> <%- item.date %> </td>
+          <td class="text-center"><%- finance.format(item.payment, 'COP')  %></td>
+          <td class="text-center"><%- finance.format(item.paymentToPrinciple, 'COP') %></td>
+          <td class="text-center"><%- finance.format(item.paymentToInterest, 'COP') %></td>
+          <td class="text-center"><%- finance.format(item.principle, 'COP') %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="text-center" style="vertical-align:middle;" colspan="2" rowspan="2">Totales</td>
+        <td class="text-center"><%- finance.format(rc.totalPayments, 'COP') %></td>
+        <td class="text-center"><%- finance.format(rc.totalPrinciple, 'COP') %></td>
+        <td class="text-center"><%- finance.format(rc.totalInterest, 'COP') %></td>
+        <td style="display:none;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="text-center small"><small>Pago</small></td>
+        <td class="text-center small"><small>Capital</small></td>
+        <td class="text-center small"><small>Intereses</small></td>
+        <td style="display:none;">&nbsp;</td>
+      </tr>
+    </tfoot>
+  </script>
+{% endblock %}

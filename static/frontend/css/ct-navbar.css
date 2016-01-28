@@ -637,3 +637,11 @@ td.small{padding: 0 !important;}
 .external a{
     margin: 0 20px;
 }
+
+
+
+.banner{
+  color: white !important;
+  border-radius: 0;
+  width: 100%;
+}

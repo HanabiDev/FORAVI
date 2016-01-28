@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$USER_HOME$/Desktop/Reports/1511SOCI" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/backend/templates/admin_login.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clients/templates/client_login.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clients/templates/clients_sidebar.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cms/templates/base/sidebar.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/frontend/templates/email.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/frontend/templates/email.txt" charset="UTF-8" />

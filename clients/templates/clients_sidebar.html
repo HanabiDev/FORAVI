@@ -1,0 +1,39 @@
+{% load static %}
+{% load cms_tags %}
+<div class="sidebar" data-color="azure" data-image="{% static 'assets/img/sidebar-5.jpg' %}">
+
+	<div class="sidebar-wrapper">
+        <div class="logo" style="border:0">
+            <a href="{% url 'clients:home' %}" class="simple-text">
+                <img src="{% static 'assets/img/logo.png' %}" style="max-height:90px;">
+            </a>
+        </div>
+
+        <ul class="nav">
+            <li class="{% navactive request 'home account update_password' %}">
+                <a href="{% url 'clients:home' %}">
+                    <i class="pe-7s-home"></i>
+                    <p>Inicio</p>
+                </a>
+            </li>
+            <li class="{% navactive request 'simulators' %}">
+                <a href="{% url 'clients:simulators' %}">
+                    <i class="pe-7s-calculator"></i>
+                    <p>Simuladores</p>
+                </a>
+            </li>
+            <li class="{% navactive request 'send_request' %}">
+                <a href="{% url 'clients:send_request' %}">
+                    <i class="pe-7s-mail"></i>
+                    <p>Enviar mensaje</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="pe-7s-help1"></i>
+                    <p>Ayuda</p>
+                </a>
+            </li>
+        </ul>
+	</div>
+</div>

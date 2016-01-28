@@ -64,7 +64,9 @@ select.form-control {
 
   .sumery, form, .nav-tabs{display: none;}
   .tab-pane{border:0px solid white !important;}
-  *{
-    overflow: hidden;
-  }
+
 }
+
+
+
+
