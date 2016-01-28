@@ -2,30 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab4354b2-a18c-4d6a-ac27-627e2be097e0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms/templates/base/base.html" afterPath="$PROJECT_DIR$/cms/templates/base/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clients/templates/clients_home.html" afterPath="$PROJECT_DIR$/clients/templates/clients_home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/frontend/css/ct-navbar.css" afterPath="$PROJECT_DIR$/static/frontend/css/ct-navbar.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finantial/templates/finantial_home.html" afterPath="$PROJECT_DIR$/finantial/templates/finantial_home.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/templates/index.html" afterPath="$PROJECT_DIR$/frontend/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/assets/css/light-bootstrap-dashboard.css" afterPath="$PROJECT_DIR$/static/assets/css/light-bootstrap-dashboard.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finantial/templates/load_reports.html" afterPath="$PROJECT_DIR$/finantial/templates/load_reports.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FORAVI/settings.py" afterPath="$PROJECT_DIR$/FORAVI/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms/templates/base/sidebar.html" afterPath="$PROJECT_DIR$/cms/templates/base/sidebar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/templates/simulators.html" afterPath="$PROJECT_DIR$/frontend/templates/simulators.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/frontend/css/styles.css" afterPath="$PROJECT_DIR$/static/frontend/css/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/templates/update_password.html" afterPath="$PROJECT_DIR$/backend/templates/update_password.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FORAVI/urls.py" afterPath="$PROJECT_DIR$/FORAVI/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clients/urls.py" afterPath="$PROJECT_DIR$/clients/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finantial/urls.py" afterPath="$PROJECT_DIR$/finantial/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/templates/user.html" afterPath="$PROJECT_DIR$/users/templates/user.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/views.py" afterPath="$PROJECT_DIR$/backend/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clients/views.py" afterPath="$PROJECT_DIR$/clients/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms/views.py" afterPath="$PROJECT_DIR$/cms/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finantial/views.py" afterPath="$PROJECT_DIR$/finantial/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/views.py" afterPath="$PROJECT_DIR$/users/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FORAVI.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,8 +53,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4848485">
-              <caret line="188" column="69" selection-start-line="188" selection-start-column="69" selection-end-line="188" selection-end-column="69" />
+            <state vertical-scroll-proportion="0.39118457">
+              <caret line="180" column="121" selection-start-line="180" selection-start-column="121" selection-end-line="180" selection-end-column="121" />
               <folding>
                 <element signature="n#div#0;n#nav#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#div#1;n#div#0;n#nav#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -532,7 +509,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20238096" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1016,8 +993,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4848485">
-          <caret line="188" column="69" selection-start-line="188" selection-start-column="69" selection-end-line="188" selection-end-column="69" />
+        <state vertical-scroll-proportion="0.39118457">
+          <caret line="180" column="121" selection-start-line="180" selection-start-column="121" selection-end-line="180" selection-end-column="121" />
           <folding>
             <element signature="n#div#0;n#nav#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#0;n#nav#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
