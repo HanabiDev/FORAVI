@@ -4,6 +4,13 @@
 
 {% block title %}{{post.title}} - FORAVI{% endblock %}
 
+
+{% block styles %}
+<link href="{% static 'frontend/css/styles.css' %}" rel="stylesheet">
+<script src="{% static 'frontend/js/bootstrap.js' %}"></script>
+{% endblock %}
+
+
 {% block content %}
     <div class="col-sm-9">
         <h2 class="heading">

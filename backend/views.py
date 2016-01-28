@@ -31,7 +31,7 @@ def login_user(request):
             if user is not None:
                 if user.is_active and user.is_superuser:
                     login(request, user)
-                    return redirect(reverse_lazy('backend_home'))
+                    return redirect(reverse_lazy('cms:home'))
                 else:
                     if not user.is_superuser:
                         error = 'No posee permisos de administrador'
