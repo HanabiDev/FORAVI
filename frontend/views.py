@@ -104,7 +104,7 @@ def send_webmail(request):
 
         send_mail(
             subject=u'Mensaje a través de sitio Web', message=text_template,
-            html_message=html_template, from_email='FORAVI <notificaciones@foravi.com>',
+            html_message=html_template, from_email='FORAVI <notificaciones@foraviuptc.com>',
             recipient_list=[to], fail_silently=False
         )
 

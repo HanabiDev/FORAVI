@@ -1,4 +1,4 @@
-Se ha registrado una solicitud un mensaje a través del sitio web.
+Se ha registrado un mensaje a través del sitio web.
 
 {{message}}
 
