@@ -65,6 +65,30 @@
                                     </ol>
                                 </li>
                             </ul>
+
+
+                            <ul class="nav navbar-nav navbar-right">
+
+                                <li class="dropdown">
+                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:5px">
+                                            <img src="/{{user.avatar}}" class="img-circle" height="30px">
+                                            {{user.first_name}} {{user.last_name}}
+                                            <b class="caret"></b>
+                                      </a>
+                                      <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{% url 'account' %}">
+                                                <i class="fa fa-gear"></i> Cuenta
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'backend_logout' %}">
+                                                <i class="fa fa-send"></i> Salir
+                                            </a>
+                                        </li>
+                                      </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </nav>
