@@ -106,7 +106,7 @@ def send_password_restore_mail(user, password):
 		            <p>Se ha solicitado recuperar la contraseña para su cuenta de administración en FORAVI.<p>
 		            <p>Se le ha generado un nueva contraseña de ingreso. Una vez iniciada la sesión, recuerde cambiar su
 		            contraseña desde la configuracion de su cuenta.</p> La nueva contraseña es: <b>"""+password+'</b>'.decode('utf-8'),
-		from_email='FORAVI <notificaciones@foravi.com>',
+		from_email='FORAVI <notificaciones@foraviuptc.com>',
 		recipient_list=[user.email],
 		fail_silently=False
 	)
