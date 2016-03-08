@@ -79,7 +79,7 @@
                     {% for comment in document.comment_set.all %}
                         <div class="row comment" id="comment-{{comment.id}}">
                             <div class="col-xs-2 col-md-1 text-center" style="padding-right:0;">
-                                <img class="img-circle" src="{{comment.author.avatar}}" height="40px">
+                                <img class="img-circle" src="/{{comment.author.avatar}}" height="40px">
                             </div>
                             <div class="col-xs-10 content" style="text-align:justify;">
                                 <b>{{comment.author.first_name}} {{comment.author.last_name}}.</b>
