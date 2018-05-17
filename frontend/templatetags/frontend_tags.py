@@ -18,7 +18,6 @@ def get_months(actual_month):
 
 @register.filter(name='get_last_posts')
 def get_last_posts(chain):
-    print "hot"
     posts = Post.objects.filter(published=True).order_by('-date')[:5]
     return posts
 
